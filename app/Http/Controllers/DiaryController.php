@@ -15,7 +15,7 @@ class DiaryController extends Controller
      */
     public function index()
     {
-        $diaries = Diary::paginate(10);
+        $diaries = Diary::orderBy('created_at', 'desc')->paginate(15);
         // $diaries = Diary::all();
         return DiaryResource::collection($diaries);
     }
