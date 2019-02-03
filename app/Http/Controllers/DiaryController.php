@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Diary;
-use App\Http\Resources\Diary as DiaryResource;
+use App\Http\Resources\DiaryResource;
 use Illuminate\Http\Request;
 
 class DiaryController extends Controller
@@ -16,7 +16,6 @@ class DiaryController extends Controller
     public function index()
     {
         $diaries = Diary::orderBy('created_at', 'desc')->paginate(15);
-        // $diaries = Diary::all();
         return DiaryResource::collection($diaries);
     }
 
