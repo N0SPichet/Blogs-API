@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Pages;
 
 use App\Diary;
-use App\Http\Resources\DiaryResource;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class DiaryController extends Controller
 {
@@ -16,8 +15,18 @@ class DiaryController extends Controller
      */
     public function index()
     {
-        $diaries = Diary::orderBy('created_at', 'desc')->paginate(15);
-        return DiaryResource::collection($diaries);
+        $diaries = Diary::paginate(12);
+        return view('diaries.index')->with('diaries', $diaries);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -28,24 +37,29 @@ class DiaryController extends Controller
      */
     public function store(Request $request)
     {
-        $diary = $request->isMethod('put') ? Diary::findOrFail($request->diary_id) : new Diary;
-        $diary->id = $request->diary_id;
-        $diary->title = $request->title;
-        $diary->body = $request->body;
-        if ($diary->save()) {
-            return new DiaryResource($diary);
-        }
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Diary  $diary
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show(Diary $diary)
     {
-        return new DiaryResource($diary);
+        return view('diaries.show')->with('diary', $diary);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Diary $diary)
+    {
+        //
     }
 
     /**
@@ -55,7 +69,7 @@ class DiaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Diary $diary)
     {
         //
     }
@@ -63,13 +77,11 @@ class DiaryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Diary  $diary
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Diary $diary)
     {
-        if ($diary->delete()) {
-            return new DiaryResource($diary);
-        }
+        //
     }
 }
