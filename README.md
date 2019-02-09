@@ -1,2 +1,2 @@
-# Blogs-API
-simple blogs api using Laravel
+# diaries-api
+simple diaries api using Laravel
